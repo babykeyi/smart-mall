@@ -1,7 +1,5 @@
 <template>
-  <div class="App">
-    <router-view></router-view>
-  </div>
+<div>搜索列表</div>
 </template>
 
 <script>

@@ -1,12 +1,10 @@
 <template>
-  <div class="App">
-    <router-view></router-view>
-  </div>
+<div>登录</div>
 </template>
 
 <script>
 export default {
-
+  name: 'LojinPage'
 }
 </script>
 
