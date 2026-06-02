@@ -10,7 +10,9 @@ import Home from '@/views/Layout/Home.vue'
 import Cart from '@/views/Layout/Cart.vue'
 import Classification from '@/views/Layout/Classification.vue'
 import About from '@/views/Layout/About.vue'
-
+import store from '@/store'
+import { Toast } from 'vant'
+import 'vant/lib/index.css'
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,5 +37,17 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  const authUrls = ['/pay', '/cart', '/order']
+  if (!authUrls.includes(to.path)) {
+    console.log('不需要权限的')
+    next()
+    return
+  }
+  const token = store.state.user.userInfo.token
+  if (!token) {
+    Toast('您没有权限浏览当前页面，需要登录')
+    next('/login')
+  } else { next() }
+})
 export default router
