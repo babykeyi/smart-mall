@@ -1,6 +1,6 @@
-import { Tabbar, TabbarItem } from 'vant'
+import { Toast, Tabbar, TabbarItem } from 'vant'
 import Vue from 'vue'
-
+Vue.use(Toast)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)
 export default {

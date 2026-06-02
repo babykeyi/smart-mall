@@ -11,30 +11,36 @@
                 <p>未注册的手机号码登录后将自动注册</p>
             </div>
             <div class="phone">
-                <input type="text" placeholder="请输入手机号码">
+                <input type="text" placeholder="请输入手机号码" v-model="mobile">
             </div>
             <div class="picCode">
-                <input type="text" placeholder="请输入图形验证码">
+                <input type="text" placeholder="请输入图形验证码" v-model="inputPicCode">
                 <img :src="picCode" @click="handlepicCode">
             </div>
             <div class="smgCode">
                 <input type="text" placeholder="请输入短信验证码">
-                <p class="msg">获取验证码</p>
+                <p class="msg"  @click="handleCount">{{ second === totalSecond?'获取短信验证码':second+'秒后重新获取'}}</p>
             </div>
-            <button>登录</button>
+            <button >登录</button>
         </form>
     </div>
 </div>
 </template>
 
 <script>
-import { getPicCode } from '@/api/login'
+import { getPicCode, getMsgCode } from '@/api/login'
+import { Toast } from 'vant'
 export default {
   name: 'LojinPage',
   data () {
     return {
+      inputPicCode: '',
       picCode: '',
-      userId: ''
+      userId: '',
+      totalSecond: 60,
+      second: 60,
+      timer: null,
+      mobile: ''
     }
   },
   async created () {
@@ -46,7 +52,43 @@ export default {
       // console.log(res.data.data)
       this.picCode = res.data.data.base64
       this.userId = res.data.data.key
+    },
+    async handleCount () {
+      if (!this.validFn()) {
+        return
+      }
+      const res = await getMsgCode(this.inputPicCode, this.userId, this.mobile)
+      //   console.log(res.data.status)
+      if (res.data.status === 200) {
+        Toast('发送成功')
+      }
+      if (!this.timer && this.second === this.totalSecond) {
+        this.second = 59
+        this.timer = setInterval(() => {
+          this.second--
+          //   console.log('你好')
+
+          if (this.second < 0) {
+            clearInterval(this.timer)
+            this.second = this.totalSecond
+          }
+        }, 1000)
+      }
+    },
+    validFn () {
+      if (!/^1[3-9]\d{9}$/.test(this.mobile)) {
+        Toast('请输入正确的手机号码')
+        return false
+      }
+      if (!/^\w{4}$/.test(this.inputPicCode)) {
+        Toast('请输入图形验证码')
+        return false
+      }
+      return true
     }
+  },
+  beforeDestroy () {
+    clearInterval(this.timer)
   }
 }
 
