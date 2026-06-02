@@ -5,7 +5,7 @@ import store from './store'
 import '@/assets/styles/Share.css'
 import '@/assets/fonts/iconfont.css'
 import '@/utils/vant-ui.js'
-
+import '@/utils/storage.js'
 Vue.config.productionTip = false
 
 new Vue({

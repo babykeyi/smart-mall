@@ -18,17 +18,18 @@
                 <img :src="picCode" @click="handlepicCode">
             </div>
             <div class="smgCode">
-                <input type="text" placeholder="请输入短信验证码">
+                <input type="text" placeholder="请输入短信验证码" v-model="msgCode">
                 <p class="msg"  @click="handleCount">{{ second === totalSecond?'获取短信验证码':second+'秒后重新获取'}}</p>
             </div>
-            <button >登录</button>
+            <button @click="handleLogin">登录</button>
         </form>
     </div>
 </div>
 </template>
 
 <script>
-import { getPicCode, getMsgCode } from '@/api/login'
+import { getPicCode, getMsgCode, getLogin } from '@/api/login'
+import { setInfo } from '@/utils/storage'
 import { Toast } from 'vant'
 export default {
   name: 'LojinPage',
@@ -36,11 +37,11 @@ export default {
     return {
       inputPicCode: '',
       picCode: '',
-      userId: '',
       totalSecond: 60,
       second: 60,
       timer: null,
-      mobile: ''
+      mobile: '',
+      msgCode: ''
     }
   },
   async created () {
@@ -85,6 +86,24 @@ export default {
         return false
       }
       return true
+    },
+    async handleLogin () {
+    //   console.log('你好')
+      if (!this.validFn()) return
+      if (!/^\d{6}$/.test(this.msgCode)) {
+        Toast('请输入短信验证码')
+        return
+      }
+      const res = await getLogin(this.mobile, this.msgCode)
+      console.log(res)
+      console.log(res.data.data.token)
+      console.log(res.data.data.userId)
+      console.log({ token: res.data.data.token, userId: res.data.data.userId })
+
+      this.$store.commit('user/setUserInfo', { token: res.data.data.token, userId: res.data.data.userId })
+      setInfo({ token: res.data.data.token, userId: res.data.data.userId })
+      Toast('登录成功')
+      this.$router.push('/')
     }
   },
   beforeDestroy () {
