@@ -10,7 +10,7 @@ import Home from '@/views/Layout/Home.vue'
 import Cart from '@/views/Layout/Cart.vue'
 import Classification from '@/views/Layout/Classification.vue'
 import About from '@/views/Layout/About.vue'
-import store from '@/store'
+// import store from '@/store'
 import { Toast } from 'vant'
 import 'vant/lib/index.css'
 Vue.use(VueRouter)
@@ -44,8 +44,8 @@ router.beforeEach((to, from, next) => {
     next()
     return
   }
-  const token = store.state.user.userInfo.token
-  if (!token) {
+  const token = JSON.parse(localStorage.getItem('hm_shopping_info'))
+  if (!token || !token.token) {
     Toast('您没有权限浏览当前页面，需要登录')
     next('/login')
   } else { next() }

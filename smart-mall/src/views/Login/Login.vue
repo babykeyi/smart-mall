@@ -1,7 +1,7 @@
 <template>
 <div class="Login">
     <div class="header">
-        <span class="back van-nav-bar"><i class="iconfont icon-a-huaban1fuben44">返回</i></span>
+        <span @click="handleBack" class="back "><i class="iconfont icon-a-huaban1fuben44">返回</i></span>
         <h3>会员登录</h3>
     </div>
     <div class="body">
@@ -29,7 +29,7 @@
 
 <script>
 import { getPicCode, getMsgCode, getLogin } from '@/api/login'
-import { setInfo } from '@/utils/storage'
+
 import { Toast } from 'vant'
 export default {
   name: 'LojinPage',
@@ -101,9 +101,13 @@ export default {
       console.log({ token: res.data.data.token, userId: res.data.data.userId })
 
       this.$store.commit('user/setUserInfo', { token: res.data.data.token, userId: res.data.data.userId })
-      setInfo({ token: res.data.data.token, userId: res.data.data.userId })
       Toast('登录成功')
       this.$router.push('/')
+    },
+    handleBack () {
+      console.log('你好')
+
+      this.$router.back()
     }
   },
   beforeDestroy () {
@@ -126,6 +130,8 @@ export default {
     padding: 10px 20px;
 }
 .back{
+    z-index: 999;
+    cursor: pointer;
     position: absolute;
     left: 0;
     top: 11px;

@@ -1,5 +1,13 @@
-import { Toast, Tabbar, TabbarItem } from 'vant'
+import { Toast, Tabbar, TabbarItem, Swipe, SwipeItem, Search, Lazyload, Grid, GridItem } from 'vant'
+
 import Vue from 'vue'
+
+Vue.use(Grid)
+Vue.use(GridItem)
+Vue.use(Lazyload)
+Vue.use(Search)
+Vue.use(Swipe)
+Vue.use(SwipeItem)
 Vue.use(Toast)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)

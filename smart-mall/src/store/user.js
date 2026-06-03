@@ -3,13 +3,12 @@ export default {
   namespaced: true,
   state () {
     return {
-      userInfo: getInfo
+      userInfo: getInfo()
     }
   },
   mutations: {
     setUserInfo (state, obj) {
-      state.userInfo.token = obj.token
-      state.userInfo.userId = obj.userId
+      state.userInfo = obj
       setInfo(obj)
       console.log('vuex', state)
     }

@@ -30,6 +30,7 @@ export default {
     position: fixed;
     bottom: 0;
     /* border: 1px solid #666; */
+    background-color: #fff;
 
 }
 .foot>ul{

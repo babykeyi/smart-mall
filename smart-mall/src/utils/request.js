@@ -2,13 +2,13 @@ import axios from 'axios'
 import { Toast } from 'vant'
 import 'vant/lib/index.css'
 const instance = axios.create({
-  baseURL: 'http://smart-shop.itheima.net/index.php?s=/api',
+  baseURL: 'https://smart-shop.itheima.net/index.php?s=/api',
   timeout: 10000
 })
 
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-//   console.log('发送了')
+  console.log('发送了')
   // 在发送请求之前做些什么
   return config
 }, function (error) {
@@ -19,7 +19,7 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
-//   console.log('得到数据')
+  console.log('得到数据')
   if (response.data.status !== 200) {
     Toast(response.data.message)
     return Promise.reject(response.data.message)
