@@ -13,6 +13,7 @@ import About from '@/views/Layout/About.vue'
 // import store from '@/store'
 import { Toast } from 'vant'
 import 'vant/lib/index.css'
+import GoodsDetails from '@/views/GoodsDetails/GoodsDetails.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,7 +32,8 @@ const routes = [
   { path: '/search', component: Search },
   { path: '/searchlist', component: SearchList },
   { path: '/order', component: Order },
-  { path: '/pay', component: Pay }
+  { path: '/pay', component: Pay },
+  { path: '/goodsdetails/:id', component: GoodsDetails }
 ]
 
 const router = new VueRouter({

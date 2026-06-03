@@ -1,5 +1,5 @@
 <template>
-  <div class="GoodsList" >
+  <div class="GoodsList"  @click="handkeClick(item.goods_id)">
     <img :src="item.goods_image" alt="">
     <div class="content">
         <p>{{item.goods_name}}</p>
@@ -13,6 +13,12 @@
 export default {
   props: {
     item: Object
+  },
+  methods: {
+    handkeClick (id) {
+      console.log(id)
+      this.$router.push(`/goodsdetails/${id}`)
+    }
   }
 }
 </script>
@@ -23,6 +29,7 @@ export default {
     /* border: 1px solid #333; */
     display: flex;
     gap: 10px;
+    cursor: pointer;
 }
 img{
     width:  150px;
