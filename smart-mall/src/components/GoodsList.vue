@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .GoodsList{
     width: 100%;
     /* border: 1px solid #333; */
@@ -41,6 +41,7 @@ img{
     flex-direction: column;
     justify-content: space-between;
     padding: 10px 20px;
+    align-items: baseline;
 }
 .oldmoney{
     text-decoration: line-through;

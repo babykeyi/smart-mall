@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
 .Layout{
     width: 80%;
     /* border: 1px solid #666; */

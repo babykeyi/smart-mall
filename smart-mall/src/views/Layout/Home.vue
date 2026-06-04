@@ -4,7 +4,7 @@
     <h3>智慧商城</h3>
   </div>
   <div class="searchInput">
-    <van-search v-model="value" placeholder="请输入搜索关键词" />
+    <van-search @click="handleSearch" v-model="value" placeholder="请输入搜索关键词" />
   </div>
   <div class="navbar">
     <van-swipe :autoplay="3000"  :touchable="true"  height="450px">
@@ -24,7 +24,7 @@
 </div>
 </template>
 
-<script>
+<script >
 import { getHomeData } from '@/api/home'
 import GoodsList from '@/components/GoodsList.vue'
 export default {
@@ -45,6 +45,12 @@ export default {
     this.grid = res.data.data.pageData.items[3].data
     this.goddslist = res.data.data.pageData.items[6].data
     console.log(this.goddslist)
+  },
+  methods: {
+    handleSearch () {
+      // console.log('你好')4
+      this.$router.push('/search')
+    }
   }
 }
 </script>

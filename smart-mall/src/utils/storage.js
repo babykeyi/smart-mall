@@ -9,3 +9,11 @@ export const setInfo = (obj) => {
 export const removeInfo = () => {
   localStorage.removeItem(INFO_KEY)
 }
+
+const HISTORY_KEY = 'hm_history_list'
+export const getHistoryList = () => {
+  return localStorage.getItem(HISTORY_KEY) ? JSON.parse(localStorage.getItem(HISTORY_KEY)) : []
+}
+export const setHistoryList = (arr) => {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(arr))
+}
