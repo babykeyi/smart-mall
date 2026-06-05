@@ -24,7 +24,7 @@
       <i  class="iconfont icon-shanchu" @click="onClear"></i>
     </div>
     <div class="item" >
-      <span v-for="(item,index) in historylist" :key="index" @click="onSearch(item)">{{item}} <span class="del" @click="handleDel(item)">×</span></span>
+      <span class="historygoods" v-for="(item,index) in historylist" :key="index" @click="onSearch(item)">{{item}} <span class="del" @click.stop="handleDel(item)">×</span></span>
 
     </div>
   </div>
@@ -44,9 +44,11 @@ export default {
   },
   methods: {
     handleBack () {
-      this.$router.back()
+      this.$router.push('/home')
     },
     onSearch (val) {
+      console.log(val)
+
       const index = this.historylist.indexOf(val)
       // console.log(index)
       if (index !== -1) {
@@ -55,12 +57,14 @@ export default {
       this.historylist.unshift(val)
       this.value = ''
       setHistoryList(this.historylist)
+      this.$router.push(`/searchlist?search=${val}`).catch(() => {})
     },
     onClear () {
       this.historylist = []
       setHistoryList([])
     },
     handleDel (item) {
+      console.log('删除')
       console.log(item)
       const index = this.historylist.indexOf(item)
       this.historylist.splice(index, 1)
@@ -74,7 +78,7 @@ export default {
 <style scoped>
 .Search{
   width: 80%;
-  height: 500px;
+  /* height: 500px; */
   /* border: 1px solid #333; */
   display: flex;
   flex-direction: column;
@@ -115,7 +119,7 @@ export default {
   display: flex;
   gap: 20px;
 }
-.item span{
+.item .historygoods{
   display:block;
   width: 100px;
   height: 35px;
@@ -138,5 +142,7 @@ export default {
   top: 2px;
   background-color: #f43434;
   color: white;
+  z-index:99;
+  cursor:pointer;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="GoodsList"  @click="handkeClick(item.goods_id)">
+  <div class="GoodsList"  @click="handkeClick(item.goods_id)" v-if="item">
     <img :src="item.goods_image" alt="">
     <div class="content">
         <p>{{item.goods_name}}</p>
