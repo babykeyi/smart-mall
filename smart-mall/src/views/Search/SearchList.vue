@@ -22,19 +22,26 @@
         <li>价格</li>
     </ul>
    </div>
-   <div class="body">
-    <GoodsList></GoodsList>
+   <div class="body" v-if="goodslist.length > 0">
+    <GoodsList  v-for="item in goodslist" :key="item.goods_id" :item="item"></GoodsList>
+
+   </div>
+   <div class="body2" v-else>
+    <h5 >没有对应的商品</h5>
    </div>
 </div>
 </template>
 
 <script>
+import { getSearchList } from '@/api/searchlist'
 import GoodsList from '@/components/GoodsList.vue'
 
 export default {
   data () {
     return {
-      value: ''
+      value: '',
+      page: 1,
+      goodslist: []
     }
   },
   components: {
@@ -44,6 +51,12 @@ export default {
     handleBack () {
       this.$router.push('/search').catch(() => {})
     }
+  },
+  async created () {
+    const res = await getSearchList(this.$route.query.search, this.page)
+    // // console.log('111', res)
+    this.goodslist = res.data.data.list.data
+    console.log(this.goodslist)
   },
   mounted () {
     this.value = this.$route.query.search
@@ -73,5 +86,22 @@ export default {
     position: absolute;
     left: 0;
     top: 11px;
+}
+.sort ul{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.body{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.body2{
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
 }
 </style>

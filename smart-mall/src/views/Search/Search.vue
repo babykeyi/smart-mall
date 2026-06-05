@@ -32,6 +32,7 @@
 </template>
 
 <script >
+import { Toast } from 'vant'
 import { getHistoryList, setHistoryList } from '@/utils/storage'
 
 export default {
@@ -48,7 +49,10 @@ export default {
     },
     onSearch (val) {
       console.log(val)
-
+      if (!val) {
+        Toast('请输入商品')
+        return
+      }
       const index = this.historylist.indexOf(val)
       // console.log(index)
       if (index !== -1) {
