@@ -9,6 +9,7 @@
         v-model="value"
         show-action
         placeholder="请输入搜索关键词"
+        @search="onSearch"
       >
         <template #action>
           <div  class="iconfont icon-fenlei1"></div>
@@ -50,6 +51,13 @@ export default {
   methods: {
     handleBack () {
       this.$router.push('/search').catch(() => {})
+    },
+    onSearch (val) {
+      console.log(val)
+      if (!val) {
+        return
+      }
+      this.$router.push(`/searchlist?search=${val}`).catch(() => {})
     }
   },
   async created () {
