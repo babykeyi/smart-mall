@@ -13,7 +13,7 @@
           <div class="menu-item" :class="{active: item.category_id === classActiveId}" v-for="item in classlist" :key="item.category_id" @click="handleClick(item)">{{item.name}}</div>
         </div>
         <div class="content" >
-          <div class="active-item" v-for="children in classActive.children" :key="children.category_id">
+          <div class="active-item" v-for="children in classActive.children" :key="children.category_id" @click="goGoods(children.category_id)">
             <img :src=" children.image.external_url" alt="">
             <p>{{ children.name }}</p>
           </div>
@@ -51,6 +51,10 @@ export default {
       this.classActive = item
       console.log(this.classActive)
       this.classActiveId = item.category_id
+    },
+    goGoods (id) {
+      console.log(id)
+      this.$router.push(`/searchlist?categoryId=${id}`)
     }
   }
 }
@@ -89,6 +93,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+   /* ========= 👇 加这两行就有回弹效果 ========= */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: auto;
 
 }
 .list .menu-item{

@@ -58,10 +58,21 @@ export default {
         return
       }
       this.$router.push(`/searchlist?search=${val}`).catch(() => {})
+    },
+    async getList () {
+      const categoryId = this.$route.query.categoryId || ''
+      const search = this.$route.query.search || ''
+      console.log('接收参数：', categoryId, search)
+
+      const res = await getSearchList(categoryId, search, this.page)
+      console.log('接口返回：', res)
     }
   },
   async created () {
-    const res = await getSearchList(this.$route.query.search, this.page)
+    this.getList()
+    console.log('这是搜索列表页面')
+
+    const res = await getSearchList(this.$route.query.categoryId, this.$route.query.search, this.page)
     // // console.log('111', res)
     this.goodslist = res.data.data.list.data
     console.log(this.goodslist)
